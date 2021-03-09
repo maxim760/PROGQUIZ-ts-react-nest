@@ -1,0 +1,13 @@
+.verify {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  flex-direction: column;
+  & > * + * {
+    margin-top: 15px;
+  }
+  &__info {
+    font-size: 0.8rem;
+    color: #333;
+  }
+}

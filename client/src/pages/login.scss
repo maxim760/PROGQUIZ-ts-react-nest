@@ -1,0 +1,74 @@
+.login {
+  height: 100%;
+  width: 100%;
+  padding: 10px 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  &__title {
+    font-weight: 600;
+    padding: 4px;
+    border-bottom: 2px solid #333;
+  }
+  &__info {
+    border: 2px solid #333;
+    padding: 10px !important;
+    box-shadow: 0 3px 0 #333;
+    font-size: 1.3rem !important;
+    border-radius: 8px !important;
+    text-align: center;
+  }
+  &__card {
+    border-radius: 0.4em !important;
+    width: 600px;
+    padding: 20px;
+    box-shadow: 3px 3px 12px rgba(#000,0.1),-3px -3px 12px rgba(#000,0.1),3px -3px 12px rgba(#000,0.1),-3px 3px 12px rgba(#000,0.1) !important;
+    & > * + * {
+      margin-top: 8px !important;
+    }
+    &-register {
+      width: 800px;
+    }
+  }
+  &__group {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    & .profile__input {
+      margin-top: 0.6rem !important;
+      width: 45%;
+    }
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & b {
+      padding: 3px;
+      transition: 0.22s ease-in;
+      position: relative;
+      &:hover::after {
+        background-color: blue;
+        transform: scaleX(1);
+        transform-origin: right;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background-color: blue;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: 0.22s ease-in;
+      }
+    }
+  }
+  & > * + * {
+    margin-top: 12px !important;
+  }
+}

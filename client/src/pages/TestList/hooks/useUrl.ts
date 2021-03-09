@@ -13,12 +13,10 @@ export const useUrl = () => {
       if (value) {
         const changedValue = value.replace(/\s/g, "%20")
         // чтобы "т " не превращалось в "т"
-        console.log(changedValue)
         acc.push(`${key}=${changedValue}`);
       }
       return acc;
     }, []);
-    console.log(url)
     history.replace({
       search: url.join("&"),
     });

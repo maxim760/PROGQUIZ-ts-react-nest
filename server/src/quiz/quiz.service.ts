@@ -26,7 +26,7 @@ export class QuizService {
       if (!id) {
         return new HttpException("Не указан id", HttpStatus.BAD_REQUEST);
       }
-      const quiz = await this.quizModel.findById(id)
+      const quiz = await this.quizModel.findById(id).exec()
       console.log(quiz)
       if (!quiz) {
         return new HttpException("Теста по такому адресу не существует", HttpStatus.NOT_FOUND);
