@@ -28,6 +28,14 @@ export const VerifyPage: React.FC = (): React.ReactElement | null => {
     };
     verifyUser();
   }, []);
+  //TODO: для паролей хук
+  //TODO: рефакторинг просто повыносить логику в хуки
+  //TODO: попробовать авторизацию через вк
+  //TODO: если пользователь зареган то добавлять резлуьтаты на базу данных
+  //TODO: сверстать страницу profile
+  
+  
+
   useEffect(() => {
     if (loadingStatus === ILoadingStatus.SUCCESS) {
       setTimeout(() => {
