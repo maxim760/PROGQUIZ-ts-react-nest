@@ -36,14 +36,12 @@ export const UsersApi = {
   },
   async login(payload: IUserForLogin): Promise<IToken> {
     try {
-      console.log("login");
       const {
         data,
       }: IServerData<IToken> = await $host.post(
         "/auth/login",
         { username: payload.email, password: payload.password }
         );
-      console.log(data)
       return data;
     } catch (error) {
       throw new Error(error.response.data.message || error.message);

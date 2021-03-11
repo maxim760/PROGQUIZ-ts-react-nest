@@ -1,4 +1,9 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import {
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
@@ -6,12 +11,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Users, UsersDocument } from './schemas/users.schema';
 import * as bcrypt from 'bcrypt';
 import { MailService } from 'src/mail/mail.service';
+import { CreateResutDto } from 'src/result/dto/create-result.dto';
+import { ResultService } from 'src/result/result.service';
+import { Result } from 'src/result/schemas/result.schema';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
     private readonly mailService: MailService,
+    private readonly resultService: ResultService,
   ) {}
 
   async create(user: CreateUserDto): Promise<Users> {
@@ -29,8 +38,10 @@ export class UsersService {
       const { password2, ...registerData } = user;
       const hashPassword = await bcrypt.hash(user.password, 7);
       const confirmedHash = nanoid();
-      this.mailService.sendInfoEmail({ emailTo: user.email, hash: confirmedHash });
-      console.log(confirmedHash)
+      this.mailService.sendInfoEmail({
+        emailTo: user.email,
+        hash: confirmedHash,
+      });
       const createdUser = await this.usersModel.create({
         ...registerData,
         password: hashPassword,
@@ -41,6 +52,41 @@ export class UsersService {
       throw new HttpException(error.message, 500);
     }
   }
+
+  async passTest(user: any, result: CreateResutDto): Promise<string> {
+    try {
+      if (!user) {
+        throw new HttpException('Не авторизован', 401);
+      }
+      const addedRes = await this.resultService.create(result);
+      if (addedRes?.isNew) {
+        const currentUser = await this.usersModel.findById(user.userId);
+        currentUser.results.push(addedRes.id);
+        await currentUser.save()
+      }
+      return 'success';
+    } catch (error) {
+      throw new HttpException(error.message, 500);
+    }
+  }
+  
+  async getResults(user: any): Promise<Result[]> {
+    try {
+      if (!user) {
+        throw new HttpException('Не авторизован', 401);
+      }
+      console.log(user, "get reses")
+      const currentUser = await this.usersModel.findById(user.userId).populate({ path: "results", populate: { path: "quiz", model: "Quiz" } })
+      if (!currentUser) {
+        throw new HttpException("Пользователь не найден", 400)
+      }
+      return currentUser.results
+
+    } catch (error) {
+      throw new HttpException(error.message, 500);
+    }
+  }
+
   async getAll() {
     return await this.usersModel.find();
   }

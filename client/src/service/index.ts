@@ -1,15 +1,14 @@
 import axios from "axios"
 
-const $host = axios.create({})
+const $host = axios.create()
 
-const $authHost = axios.create({})
+const $authHost = axios.create()
 
-const authInterceptor = (config: any) => {
-  config.headers.authorization = `Bearer ${localStorage.getItem("token")}`
+$authHost.interceptors.request.use((config: any) => {
+  const token = localStorage.getItem("token")
+  config.headers.Authorization = `${token}`;
   return config
-}
-
-$authHost.interceptors.request.use(authInterceptor)
+})
 
 export {
   $host,

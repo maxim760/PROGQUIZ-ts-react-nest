@@ -45,6 +45,19 @@ export const selectTimeForTest = (state: RootState) => {
 };
 export const selectQuizAnswers = (state: RootState) =>
   selectQuizState(state).answers;
+
+export const selectPercentTest = createSelector(
+  selectQuizAnswers,
+  (answers) => {
+    const successAnswers = answers.reduce((acc: number, value) => {
+      if (value.status === "success") {
+        acc += 1;
+      }
+      return acc;
+    }, 0);
+    return successAnswers / answers.length;
+  }
+);
 export const selectErrorsFromTest = createSelector(
   selectQuestionsObject,
   selectQuizAnswers,

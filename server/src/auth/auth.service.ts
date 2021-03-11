@@ -30,10 +30,7 @@ export class AuthService {
 
   async login(user: any) {
     const { username, _id, confirmed, email } = user._doc;
-    console.log(user._doc)
-    console.log(username, email)
     const payload = { username,email, sub: _id };
-    console.log(confirmed);
     if (!confirmed) {
       return new HttpException('Email не подтверждён', 400);
     }
@@ -44,14 +41,10 @@ export class AuthService {
 
   async verifyUser(hash: string) {
     try {
-      console.log("VERIFY")
       if (!hash) {
-        console.log("not cahe")
         throw new HttpException('Неправильная ссылка', 400);
       }
       const user = await this.usersModel.findOne({ confirmedHash: hash });
-      console.log(hash)
-      console.log(user)
       if (!user ) {
         throw new HttpException('Пользователя не существует', 400);
       }

@@ -17,7 +17,7 @@ export enum ITestCategory {
   HTML = "HTML",
 }
 export type ITest = {
-  _id: number;
+  _id: string;
   category: ITestCategory;
   length: number;
   title: string;

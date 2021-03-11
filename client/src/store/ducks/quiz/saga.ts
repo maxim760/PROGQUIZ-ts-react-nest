@@ -1,14 +1,17 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { QuizApi } from '../../../service/QuizApi'
-import { fetchQuiz, setQuiz, setStatusError, setStatusLoading, setStatusSuccess } from './slice'
+import { IResultTestToAdd, ResultsApi } from '../../../service/ResultsApi'
+import { selectPercentTest, selectQuiz, selectTimeForTest } from './selectors'
+import { fetchQuiz, finishQuiz, setQuiz, setStatusError, setStatusLoading, setStatusSuccess } from './slice'
 import { IQuestion, ITest, ITestCategory } from './types'
 
 export function* quizWatcher() {
   yield takeLatest(fetchQuiz, quizWorker )
+  yield takeLatest(finishQuiz, finishQuizWorker )
 }
 export type ITestFromServer = {
-  _id: number;
+  _id: string;
   category: ITestCategory;
   title: string;
   description: string;
@@ -34,5 +37,22 @@ function* quizWorker({ payload }: PayloadAction<string>) {
   } catch (error) {
     yield put(setStatusError())
   } 
-  
+}
+
+function* finishQuizWorker() {
+  try {
+    const quiz: ITest = yield select(selectQuiz)
+    const time: number = yield select(selectTimeForTest)
+    const rate: number = yield select(selectPercentTest)
+    console.log(time, rate)
+    const resToAdd: IResultTestToAdd = {
+      quiz: quiz._id,
+      stat: {
+        time, rate
+      }
+    }
+    yield call(ResultsApi.sendResultTest, resToAdd)
+  } catch (error) {
+    console.log(error)
+  } 
 }

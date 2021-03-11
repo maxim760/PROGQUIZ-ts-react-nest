@@ -2,7 +2,7 @@ import { CircularProgress, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Loader } from "../../components/Loader";
-import { SuccessAlert } from "../../components/SuccessAlert/SuccessAlert";
+import { AppAlert } from "../../components/AppAlert/AppAlert";
 import { UsersApi } from "../../service/UsersApi";
 import { IAuthError } from "../../store/ducks/user/types";
 import { ILoadingStatus } from "../../store/types";
@@ -33,8 +33,6 @@ export const VerifyPage: React.FC = (): React.ReactElement | null => {
   //TODO: попробовать авторизацию через вк
   //TODO: если пользователь зареган то добавлять резлуьтаты на базу данных
   //TODO: сверстать страницу profile
-  
-  
 
   useEffect(() => {
     if (loadingStatus === ILoadingStatus.SUCCESS) {
@@ -56,7 +54,11 @@ export const VerifyPage: React.FC = (): React.ReactElement | null => {
   if (loadingStatus === ILoadingStatus.SUCCESS) {
     return (
       <div className={"verify"}>
-        <SuccessAlert msToClose={5000} text={"Аккаунт успешно подтверждён"} />
+        <AppAlert
+          msToClose={5000}
+          text={"Аккаунт успешно подтверждён"}
+          type="success"
+        />
         <Typography className={"verify__info"}>
           Сейчас вы будете перенаправлены на страницу авторизации!
         </Typography>

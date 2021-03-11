@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as mongooseSchema } from 'mongoose';
+import { Result } from 'src/result/schemas/result.schema';
 
 export type UsersDocument = Users & Document;
 export type IVariant = {
@@ -30,6 +31,9 @@ export class Users {
   confirmed: boolean;
   @Prop({default: false})
   confirmedHash: string;
+
+  @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Result' }] })
+  results: Result[]
 }
 
 const UsersSchema = SchemaFactory.createForClass(Users);

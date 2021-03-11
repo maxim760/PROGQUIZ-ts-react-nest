@@ -36,7 +36,7 @@ export const Finish: React.FC = ({}): React.ReactElement => {
       <div>
         Количество верных ответов: {rightAnswersLength} / {questionsLength}
       </div>
-      <div>ошибки в вопросах: {errors.map(er => er._id).join(", ")}</div>
+      {errors.length ? <div>ошибки в вопросах: {errors.map(er => er._id).join(", ")}</div> : null}
       <div className="finish__result">
         {rightAnswersLength / questionsLength >= successResult
           ? "Вы успешно прошли тест."

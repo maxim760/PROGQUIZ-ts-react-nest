@@ -27,12 +27,6 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ }): React.ReactElement => 
       <Button color="primary" variant="contained" onClick={goToMain}>
         <h2>ProgQuiz</h2>
       </Button>
-      <button onClick={onSetAuthTrue}>
-        set auth trye
-      </button>
-      <button onClick={onSetAuthFalse}>
-        set auth false
-      </button>
       <Link to={isAuth ? "/profile" : "/login"} className="navbar__link" >
         <Typography variant="h5">{isAuth ? user?.username : "Войти"}</Typography>
         <AccountIcon style={{ fontSize: 54 }} />

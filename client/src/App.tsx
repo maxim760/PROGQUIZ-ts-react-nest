@@ -18,7 +18,7 @@ export const App = () => {
   const dispatch = useAppDispatch();
   const { onSetAuthFalse, onSetAuthTrue } = useAuth();
   const [pageLoading, setPageLoading] = React.useState(true);
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     async function checkUser() {
       try {
         const dataUser = await UsersApi.getProfile();

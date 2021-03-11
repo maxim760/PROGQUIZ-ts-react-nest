@@ -24,9 +24,13 @@ import { ROUTE_NAMES } from "../../utils/routes";
 import { useAppDispatch } from "../../store/store";
 import { fetchRegisterUser } from "../../store/ducks/user/slice";
 import { useSelector } from "react-redux";
-import { selectAuthError, selectAuthStatus } from "../../store/ducks/user/selectors";
+import {
+  selectAuthError,
+  selectAuthStatus,
+} from "../../store/ducks/user/selectors";
 import { IUserForRegister } from "../../store/ducks/user/types";
-import { SuccessAlert } from "../../components/SuccessAlert/SuccessAlert";
+import { AppAlert } from "../../components/AppAlert/AppAlert";
+import { usePassword } from "../../hooks/usePassword";
 type Inputs = {
   email: string;
   username: string;
@@ -35,26 +39,35 @@ type Inputs = {
 };
 export const RegistrationPage: React.FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
-  const [isShowPassword, setIsShowPassword] = useState(false);
-  const [isShowPassword2, setIsShowPassword2] = useState(false);
-  const onToggleShowPassword = () => setIsShowPassword((prev) => !prev);
-  const onToggleShowPassword2 = () => setIsShowPassword2((prev) => !prev);
+  // const [isShowPassword, setIsShowPassword] = useState(false);
+  // const [isShowPassword2, setIsShowPassword2] = useState(false);
+  // const onToggleShowPassword = () => setIsShowPassword((prev) => !prev);
+  // const onToggleShowPassword2 = () => setIsShowPassword2((prev) => !prev);
 
   const { isLoading, isError, isNever, isSuccess } = useSelector(
     selectAuthStatus
   );
-  const onMouseDownPassword = (event: React.MouseEvent) =>
-    event.preventDefault();
+  const pass = usePassword();
+  const repeatPass = usePassword();
+  // const onMouseDownPassword = (event: React.MouseEvent) =>
+  // event.preventDefault();
   // realtime валидация
-  const { register, handleSubmit, getValues, errors, watch, trigger } = useForm<Inputs>({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    errors,
+    watch,
+    trigger,
+  } = useForm<Inputs>({
     mode: "onChange",
     reValidateMode: "onChange",
     criteriaMode: "firstError",
   });
   const onComparePasswords = () => {
-    watch("password2").length && trigger("password2")
-  }
-  const error = useSelector(selectAuthError)
+    watch("password2").length && trigger("password2");
+  };
+  const error = useSelector(selectAuthError);
 
   const onSubmitForm = (data: IUserForRegister) => {
     dispatch(fetchRegisterUser(data));
@@ -110,7 +123,12 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
         </div>
         <div className="login__group">
           <FormControl className="profile__input" fullWidth>
-            <InputLabel htmlFor="password" style={errors.password ? {color: "red"} : {}}>Пароль</InputLabel>
+            <InputLabel
+              htmlFor="password"
+              style={errors.password ? { color: "red" } : {}}
+            >
+              Пароль
+            </InputLabel>
             <Input
               onChange={onComparePasswords}
               inputRef={register({
@@ -131,21 +149,22 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
               error={!!errors.password}
               fullWidth
               name="password"
-              type={isShowPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={onToggleShowPassword}
-                    onMouseDown={onMouseDownPassword}
+                    {...pass.button}
                   >
-                    {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                    <pass.Icon />
                   </IconButton>
                 </InputAdornment>
               }
+              {...pass.input}
             />
             {errors.password ? (
-              <FormHelperText style={{color: "red"} }>{errors.password.message}</FormHelperText>
+              <FormHelperText style={{ color: "red" }}>
+                {errors.password.message}
+              </FormHelperText>
             ) : null}
           </FormControl>
           <FormControl className="profile__input" fullWidth>
@@ -167,19 +186,17 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
               error={!!errors.password2}
               fullWidth
               name="password2"
-              //TODO: создать хук usePassword , чтобы без дублирования
-              type={isShowPassword2 ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={onToggleShowPassword2}
-                    onMouseDown={onMouseDownPassword}
+                    {...repeatPass.button}
                   >
-                    {isShowPassword2 ? <VisibilityOff /> : <Visibility />}
+                    <repeatPass.Icon />
                   </IconButton>
                 </InputAdornment>
               }
+              {...repeatPass.input}
             />
             {errors.password2 ? (
               <FormHelperText style={{ color: "red" }}>
@@ -209,11 +226,15 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
           <Alert severity="error" style={{ width: "100%" }}>
             <AlertTitle>ошбика</AlertTitle>
             описаник
-            {JSON.stringify(error,null,4)}
+            {JSON.stringify(error, null, 4)}
           </Alert>
         ) : null}
         {isSuccess ? (
-          <SuccessAlert text="Проверьте почту, вам должно прийти сообщение, чтобы вы подтвердили почту. Также проверьте папку 'Спам'" />
+          <AppAlert
+            text="Проверьте почту, вам должно прийти сообщение, чтобы вы подтвердили почту. Также проверьте папку 'Спам'"
+            type="success"
+            isCanClose
+          />
         ) : null}
       </Card>
     </form>
