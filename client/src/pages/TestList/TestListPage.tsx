@@ -7,87 +7,16 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { Loader } from "../../components/Loader";
-import { QuizApi } from "../../service/QuizApi";
-import { ITestFromServer } from "../../store/ducks/quiz/saga";
+import { Loader } from "../../components";
 import { ILoadingStatus } from "../../store/types";
 import { getCountForSuccess } from "../../utils/getCountForSuccess";
 import { useFilter } from "./hooks/useFilter";
-import { useLoadTest } from "./hooks/useLoadTest";
+import { useLoadTestList } from "./hooks/useLoadTestList";
 import "./TestListPage.scss";
 
 export type ICategory = string | null;
 export const TestListPage: React.FC = (): React.ReactElement => {
-  // const history = useHistory();
-  // const location = useLocation();
-  // const [tests, setTests] = useState<ITestFromServer[]>([]);
-  // const [filteredTests, setFilteredTests] = useState<ITestFromServer[]>([]);
-  // const [loadingStatus, setLoadingStatus] = useState<ILoadingStatus>(
-  //   ILoadingStatus.NEVER
-  // );
-  // const [categories, setCategories] = useState<string[]>([]);
-  // const [activeCategory, setActiveCategory] = useState<ICategory>(null);
-  // const [search, setSearch] = useState("");
-  // const isActive = (cat: ICategory) => cat === activeCategory;
-  // useEffect(() => {
-  //   const getTests = async () => {
-  //     setLoadingStatus(ILoadingStatus.LOADING);
-  //     try {
-  //       const tests = await QuizApi.getAll();
-  //       if (tests) {
-  //         const queryParams = new URLSearchParams(location.search);
-  //         const category = queryParams.get("cat");
-  //         const query = queryParams.get("query");
-  //         setTests(tests);
-  //         setFilteredTests(tests);
-  //         category && setActiveCategory(category);
-  //         query && setSearch(query);
-  //         setCategories(
-  //           Array.from(new Set(tests.map((test) => test.category)))
-  //         );
-  //       }
-  //       setLoadingStatus(ILoadingStatus.SUCCESS);
-  //     } catch (error) {
-  //       setLoadingStatus(ILoadingStatus.ERROR);
-  //     }
-  //   };
-  //   getTests();
-  // }, []);
-  // useEffect(() => {
-  //   const regex = new RegExp(search, "i");
-  //   const url = [];
-  //   if (activeCategory) {
-  //     url.push(`cat=${activeCategory}`);
-  //   }
-  //   if (search) {
-  //     url.push(`query=${search}`);
-  //   }
-  //   history.replace({
-  //     search: url.join("&"),
-  //   });
-  //   setFilteredTests(
-  //     tests.reduce((acc: ITestFromServer[], value) => {
-  //       if (activeCategory && value.category !== activeCategory) {
-  //         return acc;
-  //       }
-  //       if (
-  //         regex.test(value.category) ||
-  //         regex.test(value.description) ||
-  //         regex.test(value.title)
-  //       ) {
-  //         acc.push(value);
-  //       }
-  //       return acc;
-  //     }, [])
-  //   );
-  // }, [search, activeCategory]);
-  // const onSearchTest = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearch(e.target.value);
-  // };
-  // const onClickCategory = (category: ICategory) => () => {
-  //   setActiveCategory(category);
-  // };
-  const { loadingStatus, tests, categories } = useLoadTest();
+  const { loadingStatus, tests, categories } = useLoadTestList();
   const { allCategories, btnCat, searchInput, filteredTests } = useFilter({
     defaultTests: tests,
   });

@@ -32,16 +32,22 @@
       width: 800px;
     }
   }
-  &__group {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    & .profile__input {
+  &__input {
+    & + & {
       margin-top: 0.6rem !important;
-      width: 45%;
+      margin-bottom: 0px !important;
     }
   }
-  &__footer {
+  &__group {
+    display: flex;
+  align-items: center;
+  justify-content: space-around;
+  & .login__input {
+    margin-top: 0.6rem !important;
+    width: 45%;
+  }
+}
+&__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;

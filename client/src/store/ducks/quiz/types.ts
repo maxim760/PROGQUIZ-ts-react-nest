@@ -45,5 +45,7 @@ export type IQuizState = {
   answers: ITestAnswer[];
   startTime: number;
   finishTime: number;
-  loadingStatus: ILoadingStatus
+  loadingStatus: ILoadingStatus;
+  resultUrl: null | string;
+  urlStatus: ILoadingStatus;
 };

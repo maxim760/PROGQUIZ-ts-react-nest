@@ -7,10 +7,13 @@ export const useAuth = () => {
   const dispatch = useAppDispatch()
   const isAuth = useSelector(selectUserIsAuth);
   const onSetAuthTrue = () => dispatch(setIsAuth())
-  const onSetAuthFalse = () => dispatch(setNotIsAuth())
+  const onLogout = () => {
+    window.localStorage.removeItem("token")
+    dispatch(setNotIsAuth())
+  }
   return {
     isAuth,
-    onSetAuthFalse,
+    onLogout,
     onSetAuthTrue,
   }
 }

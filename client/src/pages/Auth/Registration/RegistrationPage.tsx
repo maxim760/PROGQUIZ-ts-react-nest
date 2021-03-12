@@ -14,66 +14,32 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import "../Profile/ProfilePage.scss";
+import "../../Profile/ProfilePage.scss";
 import "../login.scss";
-import { REGEX } from "../../utils/regex";
+import { REGEX } from "../../../utils/regex";
 import { Link } from "react-router-dom";
-import { ROUTE_NAMES } from "../../utils/routes";
-import { useAppDispatch } from "../../store/store";
-import { fetchRegisterUser } from "../../store/ducks/user/slice";
+import { ROUTE_NAMES } from "../../../utils/routes";
 import { useSelector } from "react-redux";
 import {
   selectAuthError,
   selectAuthStatus,
-} from "../../store/ducks/user/selectors";
-import { IUserForRegister } from "../../store/ducks/user/types";
-import { AppAlert } from "../../components/AppAlert/AppAlert";
-import { usePassword } from "../../hooks/usePassword";
-type Inputs = {
-  email: string;
-  username: string;
-  password: string;
-  password2: string;
-};
-export const RegistrationPage: React.FC = (): React.ReactElement => {
-  const dispatch = useAppDispatch();
-  // const [isShowPassword, setIsShowPassword] = useState(false);
-  // const [isShowPassword2, setIsShowPassword2] = useState(false);
-  // const onToggleShowPassword = () => setIsShowPassword((prev) => !prev);
-  // const onToggleShowPassword2 = () => setIsShowPassword2((prev) => !prev);
+} from "../../../store/ducks/user/selectors";
+import { AppAlert } from "../../../components";
+import { usePassword } from "../../../hooks/usePassword";
+import { useRegistrationForm } from "../../Profile/hooks/useRegistrationForm";
 
-  const { isLoading, isError, isNever, isSuccess } = useSelector(
-    selectAuthStatus
-  );
+export const RegistrationPage: React.FC = (): React.ReactElement => {
+
   const pass = usePassword();
   const repeatPass = usePassword();
-  // const onMouseDownPassword = (event: React.MouseEvent) =>
-  // event.preventDefault();
-  // realtime валидация
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    errors,
-    watch,
-    trigger,
-  } = useForm<Inputs>({
-    mode: "onChange",
-    reValidateMode: "onChange",
-    criteriaMode: "firstError",
-  });
-  const onComparePasswords = () => {
-    watch("password2").length && trigger("password2");
-  };
-  const error = useSelector(selectAuthError);
+  const authError = useSelector(selectAuthError)
+  const { isLoading, isError, isSuccess } = useSelector(
+    selectAuthStatus
+  );
+  const {onComparePasswords, onSubmitForm, errors, register, watch} = useRegistrationForm()
 
-  const onSubmitForm = (data: IUserForRegister) => {
-    dispatch(fetchRegisterUser(data));
-  };
   return (
-    <form onSubmit={handleSubmit(onSubmitForm)} className="login">
+    <form onSubmit={onSubmitForm} className="login">
       <Typography className="login__title">Регистрация</Typography>
       <Card className="login__card login__card-register">
         <Typography className="login__info">
@@ -82,7 +48,7 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
         </Typography>
         <div className="login__group">
           <TextField
-            className="profile__input"
+            className="login__input"
             autoFocus
             name="email"
             label="Почта"
@@ -102,7 +68,7 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
             fullWidth
           />
           <TextField
-            className="profile__input"
+            className="login__input"
             name="username"
             label="Имя"
             type="username"
@@ -122,7 +88,7 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
           />
         </div>
         <div className="login__group">
-          <FormControl className="profile__input" fullWidth>
+          <FormControl className="login__input" fullWidth>
             <InputLabel
               htmlFor="password"
               style={errors.password ? { color: "red" } : {}}
@@ -167,7 +133,7 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
               </FormHelperText>
             ) : null}
           </FormControl>
-          <FormControl className="profile__input" fullWidth>
+          <FormControl className="login__input" fullWidth>
             <InputLabel
               htmlFor="password"
               style={!!errors.password2 ? { color: "red" } : {}}
@@ -223,11 +189,7 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
           </Button>
         </div>
         {isError ? (
-          <Alert severity="error" style={{ width: "100%" }}>
-            <AlertTitle>ошбика</AlertTitle>
-            описаник
-            {JSON.stringify(error, null, 4)}
-          </Alert>
+          <AppAlert text={authError?.error!} isCanClose type="error"  />
         ) : null}
         {isSuccess ? (
           <AppAlert

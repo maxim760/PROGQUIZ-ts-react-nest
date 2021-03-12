@@ -5,7 +5,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Users, UsersDocument } from './schemas/users.schema';
@@ -53,7 +53,7 @@ export class UsersService {
     }
   }
 
-  async passTest(user: any, result: CreateResutDto): Promise<string> {
+  async passTest(user: any, result: CreateResutDto): Promise<ObjectId> {
     try {
       if (!user) {
         throw new HttpException('Не авторизован', 401);
@@ -64,7 +64,7 @@ export class UsersService {
         currentUser.results.push(addedRes.id);
         await currentUser.save()
       }
-      return 'success';
+      return addedRes.id;
     } catch (error) {
       throw new HttpException(error.message, 500);
     }
@@ -85,6 +85,29 @@ export class UsersService {
     } catch (error) {
       throw new HttpException(error.message, 500);
     }
+  }
+  async getOneResult({ id, userId }: { id: ObjectId, userId: ObjectId }) {
+    try {
+      console.log(id)
+      console.log(userId)
+      const user = await this.usersModel.findById(userId)
+      if (!user) {
+        throw new HttpException("Пользователь не найден", 400)
+      }
+      const result = await this.resultService.getOne(id)
+      const userFields = {
+        _id: user._id,
+        email: user.email,
+        username: user.username
+      }
+      return {
+        result,
+        user: userFields
+      }
+    } catch (error) {
+      throw new HttpException(error.message, 500)
+    }
+    
   }
 
   async getAll() {

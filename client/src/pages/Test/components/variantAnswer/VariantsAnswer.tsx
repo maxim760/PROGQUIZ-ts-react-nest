@@ -6,7 +6,7 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import React from "react";
-import { AppCheckBox } from "../../../../components/AppCheckBox/AppCheckbox";
+import { AppCheckBox } from "../../../../components";
 import { IVariant } from "../../../../store/ducks/quiz/types";
 
 interface VariantsAnswerProps {

@@ -2,8 +2,11 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { QuizApi } from '../../../service/QuizApi'
 import { IResultTestToAdd, ResultsApi } from '../../../service/ResultsApi'
+import { ROUTE_NAMES } from '../../../utils/routes'
+import { ILoadingStatus } from '../../types'
+import { selectUser, selectUserID } from '../user/selectors'
 import { selectPercentTest, selectQuiz, selectTimeForTest } from './selectors'
-import { fetchQuiz, finishQuiz, setQuiz, setStatusError, setStatusLoading, setStatusSuccess } from './slice'
+import { fetchQuiz, finishQuiz, setQuiz, setResultUrl, setStatusError, setStatusLoading, setStatusSuccess, setUrlStatus } from './slice'
 import { IQuestion, ITest, ITestCategory } from './types'
 
 export function* quizWatcher() {
@@ -41,18 +44,27 @@ function* quizWorker({ payload }: PayloadAction<string>) {
 
 function* finishQuizWorker() {
   try {
+    yield put(setUrlStatus(ILoadingStatus.LOADING))
     const quiz: ITest = yield select(selectQuiz)
     const time: number = yield select(selectTimeForTest)
     const rate: number = yield select(selectPercentTest)
-    console.log(time, rate)
     const resToAdd: IResultTestToAdd = {
       quiz: quiz._id,
       stat: {
         time, rate
       }
     }
-    yield call(ResultsApi.sendResultTest, resToAdd)
+    const userId: string = yield select(selectUserID)!
+    const userss: string = yield select(selectUser)!
+    const id: string = yield call(ResultsApi.sendResultTest, resToAdd)
+    console.log(userId)
+    console.log(id)
+    console.log(userss)
+    const url = `${window.location.origin}${ROUTE_NAMES.RESULT}${userId}/${id}`
+    console.log(url)
+    yield put(setResultUrl(url))
   } catch (error) {
+    yield put(setUrlStatus(ILoadingStatus.ERROR))
     console.log(error)
   } 
 }

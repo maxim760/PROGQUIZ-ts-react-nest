@@ -1,8 +1,7 @@
 import { CircularProgress, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Loader } from "../../components/Loader";
-import { AppAlert } from "../../components/AppAlert/AppAlert";
+import { Loader, AppAlert } from "../../components";
 import { UsersApi } from "../../service/UsersApi";
 import { IAuthError } from "../../store/ducks/user/types";
 import { ILoadingStatus } from "../../store/types";
@@ -28,17 +27,14 @@ export const VerifyPage: React.FC = (): React.ReactElement | null => {
     };
     verifyUser();
   }, []);
-  //TODO: для паролей хук
   //TODO: рефакторинг просто повыносить логику в хуки
   //TODO: попробовать авторизацию через вк
-  //TODO: если пользователь зареган то добавлять резлуьтаты на базу данных
-  //TODO: сверстать страницу profile
-
+  // TODO Возможность поедлиться где-то резом теста
   useEffect(() => {
     if (loadingStatus === ILoadingStatus.SUCCESS) {
       setTimeout(() => {
         history.push(ROUTE_NAMES.LOGIN);
-      }, 3000);
+      }, 2500);
     }
   }, [loadingStatus]);
   if (loadingStatus === ILoadingStatus.ERROR) {

@@ -11,7 +11,9 @@ const initialState: IQuizState = {
   answers: [],
   startTime: 0,
   finishTime: 0,
-  loadingStatus: ILoadingStatus.NEVER
+  loadingStatus: ILoadingStatus.NEVER,
+  resultUrl: null,
+  urlStatus: ILoadingStatus.NEVER
 };
 
 const quizSlice = createSlice({
@@ -20,6 +22,7 @@ const quizSlice = createSlice({
   reducers: {
     fetchQuiz(state, action: PayloadAction<string>) {
       // id для получения теста
+      setStatusLoading()
     },
     setQuiz(state, action: PayloadAction<ITest>) {
       state.quiz = action.payload
@@ -39,7 +42,9 @@ const quizSlice = createSlice({
     resetTest(state, action: PayloadAction<void>) {
       state.activeQuestion = 1;
       state.answers = []
+      state.resultUrl = null;
       state.status = ITestStatus.NONE;
+      state.urlStatus = ILoadingStatus.NEVER;
     },
     addAnswer(state, action: PayloadAction<ITestAnswer>) {
       const error = action.payload;
@@ -65,7 +70,14 @@ const quizSlice = createSlice({
     },
     setStatusLoading(state, action: PayloadAction<void>) {
       state.loadingStatus = ILoadingStatus.LOADING
-    }
+    },
+    setResultUrl(state, action: PayloadAction<string>) {
+      state.resultUrl = action.payload
+      state.urlStatus = ILoadingStatus.SUCCESS
+    },
+    setUrlStatus(state, action: PayloadAction<ILoadingStatus>) {
+      state.urlStatus = action.payload
+    },
   },
 });
 
@@ -84,5 +96,7 @@ export const {
   setStatusError,
   setStatusSuccess,
   setStatusLoading,
+  setResultUrl,
+  setUrlStatus
 } = quizSlice.actions;
 export const quizReducer = quizSlice.reducer;

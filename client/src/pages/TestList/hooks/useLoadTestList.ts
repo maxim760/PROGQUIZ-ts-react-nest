@@ -4,7 +4,7 @@ import { QuizApi } from '../../../service/QuizApi';
 import { ITestFromServer } from '../../../store/ducks/quiz/saga';
 import { ILoadingStatus } from '../../../store/types';
 
-export const useLoadTest = () => {
+export const useLoadTestList = () => {
   const [tests, setTests] = useState<ITestFromServer[]>([]);
   const [loadingStatus, setLoadingStatus] = useState<ILoadingStatus>(
     ILoadingStatus.NEVER

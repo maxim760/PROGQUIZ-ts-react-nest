@@ -9,11 +9,7 @@ import { useAppDispatch } from '../../../store/store'
 export const Start: React.FC = (): React.ReactElement | null => {
   const dispatch = useAppDispatch()
   const onStart = () => dispatch(setProgressTest())
-  const quiz = useSelector(selectQuiz)
-  if (!quiz) {
-    return null
-  }
-  const { title, description, length, category } = quiz
+  const {title, description, length, category} = useSelector(selectQuiz)!
   return (
     <>
       <Typography className="test__question">{category}: { title }</Typography>

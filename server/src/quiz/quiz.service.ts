@@ -12,27 +12,27 @@ import { Quiz, QuizDocument } from './schemas/quiz.schema';
 export class QuizService {
   constructor(@InjectModel(Quiz.name) private quizModel: Model<QuizDocument>) {}
 
-  async getAll(): Promise<Quiz[] | HttpException> {
+  async getAll(): Promise<Quiz[]> {
     try {
       const quizes = await this.quizModel.find({})
       return quizes;
     } catch (error) {
-      return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  async getOne(id: ObjectId): Promise<Quiz | HttpException> {
+  async getOne(id: ObjectId): Promise<Quiz> {
     try {
       if (!id) {
-        return new HttpException("Не указан id", HttpStatus.BAD_REQUEST);
+        throw new HttpException("Не указан id", HttpStatus.BAD_REQUEST);
       }
       const quiz = await this.quizModel.findById(id).exec()
       if (!quiz) {
-        return new HttpException("Теста по такому адресу не существует", HttpStatus.NOT_FOUND);
+        throw new HttpException("Теста по такому адресу не существует", HttpStatus.NOT_FOUND);
         
       }
       return quiz
     } catch (error) {
-      return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
   async create() {
@@ -268,7 +268,7 @@ export class QuizService {
       });
       return quiz;
     } catch (error) {
-      return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

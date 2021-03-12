@@ -1,9 +1,18 @@
 .navbar {
+  &__nav {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
   &__link {
     display: flex;
     align-items: center;
     & > * + * {
       margin-left: 10px;
     }
+  }
+  &__icon {
+    font-size: 54px !important
   }
 }

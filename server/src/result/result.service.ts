@@ -18,21 +18,21 @@ export class ResultService {
     @InjectModel(Quiz.name) private quizModel: Model<QuizDocument>,
   ) {}
 
-  async getOne(id: ObjectId): Promise<Result | HttpException> {
+  async getOne(id: ObjectId): Promise<Result> {
     try {
       if (!id) {
-        return new HttpException('Не указан id', HttpStatus.BAD_REQUEST);
+        throw new HttpException('Не указан id', HttpStatus.BAD_REQUEST);
       }
-      const result = await this.resultModel.findById(id).exec();
+      const result = await this.resultModel.findById(id).populate("quiz");
       if (!result) {
-        return new HttpException(
+        throw new HttpException(
           'Результата по такому адресу не существует',
           HttpStatus.NOT_FOUND,
         );
       }
       return result;
     } catch (error) {
-      return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
   async create(result: CreateResutDto): Promise<{ isNew: boolean; id: any }> {

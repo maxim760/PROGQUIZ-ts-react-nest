@@ -32,7 +32,7 @@ export class AuthService {
     const { username, _id, confirmed, email } = user._doc;
     const payload = { username,email, sub: _id };
     if (!confirmed) {
-      return new HttpException('Email не подтверждён', 400);
+      throw new HttpException('Email не подтверждён', 400);
     }
     return {
       access_token: this.jwtService.sign(payload),

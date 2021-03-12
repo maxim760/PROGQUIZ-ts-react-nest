@@ -11,25 +11,20 @@ import { selectUser } from "../../store/ducks/user/selectors";
 interface AppNavbarProps {}
 
 export const AppNavbar: React.FC<AppNavbarProps> = ({ }): React.ReactElement => {
-  const { isAuth, onSetAuthFalse, onSetAuthTrue } = useAuth()
+  const { isAuth } = useAuth()
   const user = useSelector(selectUser)
   const history = useHistory();
   const goToMain = () => history.push("/");
   return (
     <nav
-      style={{
-        height: 60,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
+      className="navbar__nav"
     >
       <Button color="primary" variant="contained" onClick={goToMain}>
         <h2>ProgQuiz</h2>
       </Button>
       <Link to={isAuth ? "/profile" : "/login"} className="navbar__link" >
         <Typography variant="h5">{isAuth ? user?.username : "Войти"}</Typography>
-        <AccountIcon style={{ fontSize: 54 }} />
+        <AccountIcon className="navbar__icon" />
       </Link>
     </nav>
   );

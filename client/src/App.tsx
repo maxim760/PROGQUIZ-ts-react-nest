@@ -1,31 +1,25 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
-import { routes } from "./utils/routes";
-import { MainTemplate } from "./components/MainTemplate";
+
+import { MainTemplate, Loader, AppRouter } from "./components";
 import { useAppDispatch } from "./store/store";
+//TODO: при создании теста!!! сделать драг н дроп для вариантов ответа и самих вопросов
+//TODO: также 2 возможности отображнеия: 1 вопрос на экране, лист вопросов сразу!!1!!11!!
 import { useAuth } from "./hooks/useAuth";
 import { setUser } from "./store/ducks/user/slice";
 import { UsersApi } from "./service/UsersApi";
-import { Loader } from "./components/Loader";
 import { Container } from "@material-ui/core";
-import { AppRouter } from "./components/AppRouter/AppRouter";
 export const App = () => {
   const dispatch = useAppDispatch();
-  const { onSetAuthFalse, onSetAuthTrue } = useAuth();
+  const { onLogout, onSetAuthTrue } = useAuth();
   const [pageLoading, setPageLoading] = React.useState(true);
   React.useEffect(() => {
-    async function checkUser() {
+    const checkUser = async () => {
       try {
         const dataUser = await UsersApi.getProfile();
         onSetAuthTrue();
         dispatch(setUser(dataUser));
       } catch (error) {
-        onSetAuthFalse();
+        onLogout();
       }
       setPageLoading(false);
     }

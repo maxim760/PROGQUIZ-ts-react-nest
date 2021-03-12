@@ -1,0 +1,28 @@
+import React, { useEffect } from 'react'
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { usePassword } from '../../../hooks/usePassword';
+import { selectAuthStatus, selectAuthError } from '../../../store/ducks/user/selectors';
+import { fetchLoginUser } from '../../../store/ducks/user/slice';
+import { IUserForLogin } from '../../../store/ducks/user/types';
+import { useAppDispatch } from '../../../store/store';
+type Inputs = {
+  email: string;
+  password: string;
+};
+export const useLoginForm = () => {
+  const dispatch = useAppDispatch()
+  
+  const { register, handleSubmit,errors } = useForm<Inputs>({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    criteriaMode: "firstError",
+  });
+  const onSubmitForm = (data: IUserForLogin) => dispatch(fetchLoginUser(data));
+  return {
+    onSubmitForm: handleSubmit(onSubmitForm),
+    errors,
+    register,
+  }
+}

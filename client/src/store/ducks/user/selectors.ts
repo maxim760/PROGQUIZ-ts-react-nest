@@ -4,6 +4,7 @@ import { ILoadingStatus } from "../../types";
 
 export const selectUserState = (state: RootState) => state.user;
 export const selectUser = (state: RootState) => selectUserState(state).user;
+export const selectUserID = (state: RootState) => selectUser(state)?._id;
 export const selectUserIsAuth = (state: RootState) => selectUserState(state).isAuth
 export const selectAuthStatus = (state: RootState) => {
   const status = selectUserState(state).authStatus

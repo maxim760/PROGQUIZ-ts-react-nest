@@ -1,29 +1,46 @@
-import { Snackbar } from "@material-ui/core";
+import { Snackbar, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface AppAlertProps {
-  text: string;
-  type: "success" | "error"
+  text: string | string[];
+  type: "success" | "error";
   msToClose?: number;
-  isCanClose?: boolean
+  isCanClose?: boolean;
 }
 
 export const AppAlert: React.FC<AppAlertProps> = ({
   text,
   msToClose,
   isCanClose = false,
-  type
+  type,
 }): React.ReactElement => {
-  const [isOpen, setIsOpen] = useState(true)
-  const onClose = () => setIsOpen(false)
+  const [isOpen, setIsOpen] = useState(true);
+  const onClose = () => setIsOpen(false);
+  useEffect(() => {
+    if (msToClose) {
+      setTimeout(() => {
+        onClose();
+      }, msToClose);
+    }
+    return () => {
+      onClose();
+    };
+  }, []);
   return (
-    <Snackbar
-      open={isOpen}
-      onClose={isCanClose ? onClose : undefined}
-      autoHideDuration={msToClose || null}
-    >
-      <Alert severity={type}>{text}</Alert>
-    </Snackbar>
+    <>
+      {isOpen ? (
+        <Alert severity={type} onClose={isCanClose ? onClose : undefined}>
+          {typeof text === "string" ? (
+            text
+          ) : (
+            <>
+              <Typography>Следующие ошибки</Typography>
+              <span style={{ whiteSpace: "pre-wrap" }}>{text.join("\n")}</span>
+            </>
+          )}
+        </Alert>
+      ) : null}
+    </>
   );
 };

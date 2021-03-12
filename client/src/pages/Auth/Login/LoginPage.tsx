@@ -13,35 +13,21 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import "../Profile/ProfilePage.scss";
+import "../../Profile/ProfilePage.scss";
 import "../login.scss";
-import { REGEX } from "../../utils/regex";
-import { ROUTE_NAMES } from "../../utils/routes";
+import { REGEX } from "../../../utils/regex";
+import { ROUTE_NAMES } from "../../../utils/routes";
 import { Link, useHistory } from "react-router-dom";
-import { useAppDispatch } from "../../store/store";
-import { fetchLoginUser } from "../../store/ducks/user/slice";
 import { useSelector } from "react-redux";
-import { selectAuthError, selectAuthStatus } from "../../store/ducks/user/selectors";
-import { IUserForLogin } from "../../store/ducks/user/types";
-import { Alert, AlertTitle } from "@material-ui/lab";
-type Inputs = {
-  email: string;
-  password: string;
-};
+import { selectAuthError, selectAuthStatus } from "../../../store/ducks/user/selectors";
+import { usePassword } from "../../../hooks/usePassword";
+import { AppAlert } from "../../../components";
+import { useLoginForm } from "../../Profile/hooks/useLoginForm";
+
 export const LoginPage: React.FC = (): React.ReactElement => {
   const history = useHistory()
-  const dispatch = useAppDispatch()
-  const [isShowPassword, setIsShowPassword] = useState(false);
-  const onToggleShowPassword = () => setIsShowPassword((prev) => !prev);
-  const onMouseDownPassword = (event: React.MouseEvent) =>
-    event.preventDefault();
-  const { register, handleSubmit, watch, errors } = useForm<Inputs>({
-    mode: "onChange",
-    reValidateMode: "onChange",
-    criteriaMode: "firstError",
-  });
+  const pass = usePassword();
+  
   const { isLoading, isError, isNever, isSuccess } = useSelector(
     selectAuthStatus
   );
@@ -50,14 +36,14 @@ export const LoginPage: React.FC = (): React.ReactElement => {
       history.push("/")
     }
   }, [isSuccess]);
-  const error = useSelector(selectAuthError)
-  const onSubmitForm = (data: IUserForLogin) => dispatch(fetchLoginUser(data));
+  const authError = useSelector(selectAuthError)
+  const { errors, onSubmitForm, register } = useLoginForm()
   return (
-    <form onSubmit={handleSubmit(onSubmitForm)} className="login">
+    <form onSubmit={onSubmitForm} className="login">
       <Typography className="login__title">Авторизация</Typography>
       <Card className="login__card">
         <TextField
-          className="profile__input"
+          className="login__input"
           autoFocus
           margin="dense"
           name="email"
@@ -77,7 +63,7 @@ export const LoginPage: React.FC = (): React.ReactElement => {
           })}
           fullWidth
         />
-        <FormControl className="profile__input" fullWidth>
+        <FormControl className="login__input" fullWidth>
           <InputLabel
             htmlFor="password"
             style={!!errors.password ? { color: "red" } : {}}
@@ -103,15 +89,14 @@ export const LoginPage: React.FC = (): React.ReactElement => {
             })}
             fullWidth
             name="password"
-            type={isShowPassword ? "text" : "password"}
+            {...pass.input}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={onToggleShowPassword}
-                  onMouseDown={onMouseDownPassword}
+                  {...pass.button}
                 >
-                  {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                  <pass.Icon />
                 </IconButton>
               </InputAdornment>
             }
@@ -139,11 +124,7 @@ export const LoginPage: React.FC = (): React.ReactElement => {
           </Button>
         </div>
         {isError ? (
-          <Alert severity="error" style={{ width: "100%" }}>
-            <AlertTitle>ошбика</AlertTitle>
-            описаник
-            {JSON.stringify(error,null,4)}
-          </Alert>
+          <AppAlert text={authError?.error!} isCanClose type="error"  />
         ) : null}
       </Card>
     </form>

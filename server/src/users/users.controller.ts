@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, Request } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards, Request, Query, Param } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import { CreateResutDto } from "src/result/dto/create-result.dto";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -23,6 +23,10 @@ export class UsersController {
   @Get("/test")
   getResults(@Request() req) {
     return this.usersService.getResults(req.user)
+  }
+  @Get("/test/:id")
+  getOneResult(@Param("id") id, @Query("userId") userId) {
+    return this.usersService.getOneResult({id, userId})
   }
 
   @Get()

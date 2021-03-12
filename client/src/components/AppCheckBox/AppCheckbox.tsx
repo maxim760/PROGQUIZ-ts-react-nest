@@ -31,4 +31,4 @@ export const AppCheckBox: React.FC<AppCheckBoxProps> = ({
       label={labelProp}
     />
   );
-};
+}

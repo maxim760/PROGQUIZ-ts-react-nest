@@ -1,50 +1,28 @@
-import { Box, Button, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Loader } from "../../components/Loader";
-import { selectQuiz, selectStatusTest } from "../../store/ducks/quiz/selectors";
-import { fetchQuiz, resetTest, setQuiz } from "../../store/ducks/quiz/slice";
-import { RootState } from "../../store/rootReducer";
-import { useAppDispatch } from "../../store/store";
-import { ILoadingStatus } from "../../store/types";
+import React from "react";
+import { Box } from "@material-ui/core";
+import { Loader } from "../../components";
 import { Finish } from "./components/Finish/Finish";
 import { Question } from "./components/Question";
 import { Start } from "./components/Start";
+import { useLoadTest } from "./hooks/useLoadTest";
 import "./TestPage.scss";
 interface TestPageProps {}
 
 export const TestPage: React.FC<TestPageProps> = ({}): React.ReactElement => {
-  const dispatch = useAppDispatch();
-  const params: { id: string } = useParams();
-  const testId = params.id;
-  const { isNone, isProgress, isFinish } = useSelector(selectStatusTest);
-  // const quiz = useSelector(selectQuiz);
-  const loadingStatus = useSelector(
-    (state: RootState) => state.quiz.loadingStatus
-  );
-  useEffect(() => {
-    dispatch(fetchQuiz(testId));
-    return () => {
-      dispatch(resetTest());
-    };
-  }, []);
-  // if (!test) {
-  //   return <h1>Неправильный адрес 404</h1>;
-  // }
-  if (loadingStatus === ILoadingStatus.LOADING) {
-    return <Loader />;
+  const { testStatus, loadingStatus } = useLoadTest()
+  if (loadingStatus.isError) {
+    return <h1>Неправильный адрес</h1>;
   }
-  if (loadingStatus === ILoadingStatus.ERROR) {
-    return <h1>Неправильный адрес 404</h1>;
+  if (loadingStatus.isLoading || loadingStatus.isNever) {
+    return <Loader />;
   }
   return (
     <Box className="test">
-      {isNone ? (
+      {testStatus.isNone ? (
         <Start />
-      ) : isProgress ? (
+      ) : testStatus.isProgress ? (
         <Question />
-      ) : isFinish ? (
+      ) : testStatus.isFinish ? (
         <Finish />
       ) : null}
     </Box>

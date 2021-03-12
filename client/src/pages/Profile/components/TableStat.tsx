@@ -17,6 +17,11 @@ import { getTime } from "../../../utils/getTime";
 import { getTimeToNow } from "../../../utils/getTimeToNow";
 import { toPercent } from "../../../utils/toPercent";
 
+// Логика из Материал UI
+// https://material-ui.com/components/tables/
+// https://codesandbox.io/s/8uyys
+
+
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
