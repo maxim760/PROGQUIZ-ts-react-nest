@@ -29,6 +29,9 @@ export class AuthService {
   }
 
   async login(user: any) {
+    if (!user) {
+      throw new HttpException("Не авторизован", 400)
+    }
     const { username, _id, confirmed, email } = user._doc;
     const payload = { username,email, sub: _id };
     if (!confirmed) {
@@ -37,6 +40,12 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+  async getProfile(user: any) {
+    if (!user) {
+      throw new HttpException("Не авторизован", 400)
+    }
+    return user;
   }
 
   async verifyUser(hash: string) {
@@ -47,6 +56,9 @@ export class AuthService {
       const user = await this.usersModel.findOne({ confirmedHash: hash });
       if (!user ) {
         throw new HttpException('Пользователя не существует', 400);
+      }
+      if (user.confirmed) {
+        throw new HttpException('Вы уже подтвердили свою почту', 400);
       }
       user.confirmed = true;
       await user.save();

@@ -10,6 +10,10 @@ export class QuizController {
   getAll() {
     return this.quizService.getAll();
   }
+  @Get("/category")
+  getCategories() {
+    return this.quizService.getCategories();
+  }
   @Get(':id')
   getOne(@Param('id') id: ObjectId) {
     return this.quizService.getOne(id);

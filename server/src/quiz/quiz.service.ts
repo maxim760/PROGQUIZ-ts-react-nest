@@ -20,6 +20,15 @@ export class QuizService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+  async getCategories(): Promise<Quiz[]> {
+    try {
+      const categories = await this.quizModel.distinct("category")
+      console.log(categories)
+      return categories;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   async getOne(id: ObjectId): Promise<Quiz> {
     try {
       if (!id) {

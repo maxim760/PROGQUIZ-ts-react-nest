@@ -3,13 +3,15 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { QuizApi } from '../../../service/QuizApi';
 import { ITestFromServer } from '../../../store/ducks/quiz/saga';
 import { ILoadingStatus } from '../../../store/types';
-
+import {useAppDispatch} from "../../../store/store"
+import { setCategories } from '../../../store/ducks/categories/slice';
 export const useLoadTestList = () => {
+  const dispatch = useAppDispatch()
   const [tests, setTests] = useState<ITestFromServer[]>([]);
   const [loadingStatus, setLoadingStatus] = useState<ILoadingStatus>(
     ILoadingStatus.NEVER
   );
-  const [categories, setCategories] = useState<string[]>([]);
+  const [curCategories, setCurCategories] = useState<string[]>([]);
   useEffect(() => {
     const getTests = async () => {
       setLoadingStatus(ILoadingStatus.LOADING);
@@ -17,9 +19,10 @@ export const useLoadTestList = () => {
         const tests = await QuizApi.getAll();
         if (tests) {
           setTests(tests);
-          setCategories(
-            Array.from(new Set(tests.map((test) => test.category)))
-          );
+          const categories = Array.from(new Set(tests.map((test) => test.category)))
+          setCurCategories(categories)
+          dispatch(setCategories(categories))
+          
         }
         setLoadingStatus(ILoadingStatus.SUCCESS);
       } catch (error) {
@@ -31,6 +34,6 @@ export const useLoadTestList = () => {
   return {
     loadingStatus,
     tests,
-    categories
+    categories: curCategories
   }
 }

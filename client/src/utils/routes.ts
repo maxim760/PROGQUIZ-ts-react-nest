@@ -5,6 +5,7 @@ import { TestPage } from "../pages/Test/TestPage";
 import { TestListPage } from "../pages/TestList/TestListPage";
 import { VerifyPage } from "../pages/Verify/VerifyPage";
 import { ResultPage } from "../pages/Result/ResultPage";
+import { CreatePage } from "../pages/Create/CreatePage";
 
 export enum ROUTE_NAMES {
   MAIN= "/",
@@ -13,7 +14,8 @@ export enum ROUTE_NAMES {
   REGISTRATION= "/registration",
   LOGIN="/login",
   VERIFY = "/verify/",
-  RESULT = "/result/"
+  RESULT = "/result/",
+  CREATE = "/create/"
 
 }
 
@@ -21,6 +23,7 @@ export const authRoutes = [
   { path: ROUTE_NAMES.MAIN, component: TestListPage },
   { path: `${ROUTE_NAMES.TEST}:id`, component: TestPage },
   { path: ROUTE_NAMES.PROFILE, component: ProfilePage },
+  { path: ROUTE_NAMES.CREATE, component: CreatePage },
   { path: `${ROUTE_NAMES.RESULT}:user/:id`, component: ResultPage },
 ];
 

@@ -57,11 +57,7 @@ function* finishQuizWorker() {
     const userId: string = yield select(selectUserID)!
     const userss: string = yield select(selectUser)!
     const id: string = yield call(ResultsApi.sendResultTest, resToAdd)
-    console.log(userId)
-    console.log(id)
-    console.log(userss)
     const url = `${window.location.origin}${ROUTE_NAMES.RESULT}${userId}/${id}`
-    console.log(url)
     yield put(setResultUrl(url))
   } catch (error) {
     yield put(setUrlStatus(ILoadingStatus.ERROR))

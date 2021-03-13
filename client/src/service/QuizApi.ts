@@ -24,6 +24,14 @@ export const QuizApi = {
       throw new Error(error.response.data.message || error.message);
       
     }
-
+  },
+  async getCategories(): Promise<string[]> {
+    try {
+      const {data}: IServerData<string[]> = await $host.get("/quiz/category") 
+      return data
+    } catch (error) {
+      throw new Error(error.response.data.message || error.message);
+      
+    }
   }
 }

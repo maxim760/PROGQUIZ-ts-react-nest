@@ -28,7 +28,6 @@ export const ResultPage: React.FC<ResultPageProps> = ({ }): React.ReactElement =
         const { user, result } = await ResultsApi.getOneResult({ id, userId })
         setRes(result)
         setUser(user)
-        console.log(result)
         setStatus(ILoadingStatus.SUCCESS)
       } catch (error) {
         setStatus(ILoadingStatus.ERROR)

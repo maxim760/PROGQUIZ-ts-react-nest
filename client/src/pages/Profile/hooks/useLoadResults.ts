@@ -10,7 +10,6 @@ export const useLoadResults = () => {
     const getResults = async () => {
       try {
         const results = await ResultsApi.getResultsTest();
-        console.log(results);
         setResults(results);
         setStatus(ILoadingStatus.SUCCESS);
       } catch (error) {

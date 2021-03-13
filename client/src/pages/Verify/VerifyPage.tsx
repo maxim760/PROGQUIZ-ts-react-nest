@@ -27,9 +27,7 @@ export const VerifyPage: React.FC = (): React.ReactElement | null => {
     };
     verifyUser();
   }, []);
-  //TODO: рефакторинг просто повыносить логику в хуки
   //TODO: попробовать авторизацию через вк
-  // TODO Возможность поедлиться где-то резом теста
   useEffect(() => {
     if (loadingStatus === ILoadingStatus.SUCCESS) {
       setTimeout(() => {

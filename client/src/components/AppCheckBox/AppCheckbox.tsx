@@ -5,7 +5,7 @@ interface AppCheckBoxProps {
   checked: boolean;
   onChange(): void;
   text?: string | [string, string];
-  className: string
+  className?: string
 }
 
 export const AppCheckBox: React.FC<AppCheckBoxProps> = ({

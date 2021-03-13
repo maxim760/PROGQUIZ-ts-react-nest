@@ -58,9 +58,7 @@ export const ResultsApi = {
 
   async getOneResult({userId,id}: {userId: string,id: string}): Promise<IOneResult> {
     try {
-      console.log("try")
       const url = `/user/test/${id}?userId=${userId}`
-      console.log(url)
       const { data }: IServerData<IOneResult> = await $host.get(url)
       return data
     } catch (error) {

@@ -75,7 +75,6 @@ export class UsersService {
       if (!user) {
         throw new HttpException('Не авторизован', 401);
       }
-      console.log(user, "get reses")
       const currentUser = await this.usersModel.findById(user.userId).populate({ path: "results", populate: { path: "quiz", model: "Quiz" } })
       if (!currentUser) {
         throw new HttpException("Пользователь не найден", 400)
@@ -88,8 +87,6 @@ export class UsersService {
   }
   async getOneResult({ id, userId }: { id: ObjectId, userId: ObjectId }) {
     try {
-      console.log(id)
-      console.log(userId)
       const user = await this.usersModel.findById(userId)
       if (!user) {
         throw new HttpException("Пользователь не найден", 400)

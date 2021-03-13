@@ -1,0 +1,12 @@
+.create {
+  &__input-percent {
+    display: flex;
+    align-items: center;
+  }
+  &__percent {
+    text-align-last: center;
+    font-size: 1.4rem !important;
+    width: 2.4rem !important;
+    margin: 0rem 0.4rem !important;
+  }
+}

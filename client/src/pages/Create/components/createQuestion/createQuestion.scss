@@ -1,0 +1,49 @@
+@import "../../../../index.scss";
+
+.create-question {
+  margin: 0 auto;
+  max-width: 750px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  &__header {
+    margin-top: 10px !important;
+    display: flex;
+    align-items: center;
+    width:fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 2px solid $blue; 
+  }
+  &__icon-button {
+    font-size: 2rem !important;
+    padding: 0 !important;
+  }
+  &__icon {
+    
+    font-size: 2rem !important;
+  }
+  &__title {
+    font-size: 1.6rem;
+    padding: 4px;
+  }
+  &__question {
+    width: 75%;
+    text-align: center;
+  }
+  &__answers {
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    & > * {
+      width: 40%;
+      margin-bottom: 10px !important;
+      & > * {
+        border-radius: 10px !important;
+      }
+
+    }
+  }
+}

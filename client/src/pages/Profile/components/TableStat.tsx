@@ -160,7 +160,6 @@ export const TableStat: React.FC<TableStatProps> = ({
   stat,
   successPercent,
 }): React.ReactElement => {
-  console.log(stat);
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>("desc");
   const [orderBy, setOrderBy] = React.useState<keyof IStat>("date");
