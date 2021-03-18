@@ -1,14 +1,14 @@
 import {
   Button,
   Card,
-  Divider,
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React from "react";
+import { Link} from "react-router-dom";
 import { Loader } from "../../components";
 import { ILoadingStatus } from "../../store/types";
+import { finishWord } from "../../utils/finishWord";
 import { getCountForSuccess } from "../../utils/getCountForSuccess";
 import { useFilter } from "./hooks/useFilter";
 import { useLoadTestList } from "./hooks/useLoadTestList";
@@ -70,7 +70,7 @@ export const TestListPage: React.FC = (): React.ReactElement => {
                         percent: successResult,
                         count: questions.length,
                       })}
-                      &nbsp;вопросов
+                      &nbsp;вопрос{finishWord(questions.length, ["","а","ов"])}
                     </b>
                   </Typography>
                 </Card>

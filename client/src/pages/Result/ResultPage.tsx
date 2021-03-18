@@ -1,4 +1,4 @@
-import { Button, Divider, Typography } from '@material-ui/core'
+import { Divider, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AppAlert, Loader } from '../../components'
@@ -12,11 +12,7 @@ import { TableStat } from '../Profile/components/TableStat'
 
 import "./result.scss"
 
-interface ResultPageProps {
-  
-}
-
-export const ResultPage: React.FC<ResultPageProps> = ({ }): React.ReactElement => {
+export const ResultPage: React.FC = (): React.ReactElement => {
   const {id, user: userId}: {id: string, user: string} = useParams()
   const [user, setUser] = useState<IUser | null>(null)
   const [res, setRes] = useState<IResultTest | null>(null)

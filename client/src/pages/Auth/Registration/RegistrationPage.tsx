@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
 import {
   Button,
   Card,
@@ -13,7 +12,6 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import "../../Profile/ProfilePage.scss";
 import "../login.scss";
 import { REGEX } from "../../../utils/regex";
@@ -26,7 +24,7 @@ import {
 } from "../../../store/ducks/user/selectors";
 import { AppAlert } from "../../../components";
 import { usePassword } from "../../../hooks/usePassword";
-import { useRegistrationForm } from "../../Profile/hooks/useRegistrationForm";
+import { useRegistrationForm } from "../hooks/useRegistrationForm";
 
 export const RegistrationPage: React.FC = (): React.ReactElement => {
 

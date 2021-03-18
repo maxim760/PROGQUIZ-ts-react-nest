@@ -1,37 +1,20 @@
 import { Button } from "@material-ui/core";
-import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import {
-  selectErrorsFromTest,
-  selectPercentTest,
-  selectQuestionsLength,
-  selectQuizSuccessPercent,
-  selectTimeForTest,
-} from "../../../../store/ducks/quiz/selectors";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import { resetTest } from "../../../../store/ducks/quiz/slice";
-import { RootState } from "../../../../store/rootReducer";
 import { useAppDispatch } from "../../../../store/store";
-import { getCountForSuccess } from "../../../../utils/getCountForSuccess";
 import { getTime } from "../../../../utils/getTime";
 import { useShowErrors } from "../../hooks/useShowErrors";
 import { useStatTest } from "../../hooks/useStatTest";
 import { VariantsAnswer } from "../variantAnswer/VariantsAnswer";
 import "./finish.scss";
 
-import {
-  TelegramShareButton,
-  VKShareButton,
-  TelegramIcon,
-  VKIcon,
-} from "react-share";
 import { useModal } from "../../../../hooks/useModal";
 import { ModalShare } from "../ModalShare/ModalShare";
 
-export const Finish: React.FC = ({}): React.ReactElement => {
+export const Finish: React.FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const location = useLocation();
   const {isVisible, onShow, onHide} = useModal()
   const {
     time,

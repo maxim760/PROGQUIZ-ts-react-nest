@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Divider } from "@material-ui/core";
 import { AppNavbar } from "../AppNavbar/AppNavbar";
-import { useAuth } from "../../hooks/useAuth";
 import "./mainTemplate.scss"
 export type MainTemplateProps = {
   children: any;

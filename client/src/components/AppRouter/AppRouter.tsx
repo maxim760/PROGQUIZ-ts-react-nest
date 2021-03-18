@@ -3,9 +3,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { routes, authRoutes } from "../../utils/routes";
 
-interface AppRouterProps {}
 
-export const AppRouter: React.FC<AppRouterProps> = ({ }): React.ReactElement => {
+export const AppRouter: React.FC = (): React.ReactElement => {
   const { isAuth } = useAuth()
   const appRoutes = isAuth ? authRoutes : routes
 

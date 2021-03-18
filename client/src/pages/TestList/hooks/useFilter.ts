@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ITestFromServer } from "../../../store/ducks/quiz/saga";
 import { ICategory } from "../TestListPage";
 import { IUseFilterProps, IUSeFilter } from "./types";

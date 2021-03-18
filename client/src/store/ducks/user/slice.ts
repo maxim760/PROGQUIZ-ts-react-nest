@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ILoadingStatus } from "../../types";
-import { ITestStatus } from "../quiz/types";
 import { IAuthError, IUser, IUserForLogin, IUserForRegister, IUserState } from "./types";
 
 const initialState: IUserState = {

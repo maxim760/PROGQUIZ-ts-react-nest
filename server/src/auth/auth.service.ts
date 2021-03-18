@@ -21,11 +21,14 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(email);
+    if (!user) {
+      throw new HttpException("Пользователя с такой почтой не существует", 400);
+    }
     if (user && bcrypt.compareSync(pass, user.password) && user.confirmed) {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+    throw new HttpException("Неправильный логин или пароль", 400);
   }
 
   async login(user: any) {

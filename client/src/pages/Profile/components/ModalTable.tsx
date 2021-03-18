@@ -1,20 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  FormControl,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  TextField,
 } from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { IStat } from "../../../service/ResultsApi";
 import { TableStat } from "./TableStat";
 

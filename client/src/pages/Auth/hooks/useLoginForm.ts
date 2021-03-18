@@ -1,9 +1,4 @@
-import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { usePassword } from '../../../hooks/usePassword';
-import { selectAuthStatus, selectAuthError } from '../../../store/ducks/user/selectors';
 import { fetchLoginUser } from '../../../store/ducks/user/slice';
 import { IUserForLogin } from '../../../store/ducks/user/types';
 import { useAppDispatch } from '../../../store/store';

@@ -8,7 +8,7 @@ import { useLoadTest } from "./hooks/useLoadTest";
 import "./TestPage.scss";
 interface TestPageProps {}
 
-export const TestPage: React.FC<TestPageProps> = ({}): React.ReactElement => {
+export const TestPage: React.FC<TestPageProps> = (): React.ReactElement => {
   const { testStatus, loadingStatus } = useLoadTest()
   if (loadingStatus.isError) {
     return <h1>Неправильный адрес</h1>;

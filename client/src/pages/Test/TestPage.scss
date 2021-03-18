@@ -45,10 +45,15 @@
     flex-wrap: wrap;
     width: 600px;
     justify-content: space-around;
+    & &--no-transition {
+      
+      transition: all 0.2s ease-in, background-color 0s !important ;
+    }
     &-btn {
       margin-top: 20px !important;
       width: 50%;
       display: flex;
+      text-transform: none !important;
       padding: 20px !important;
       justify-content: center;
       border-radius: 30px !important;

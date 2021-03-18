@@ -1,6 +1,5 @@
 import { $authHost, $host } from ".";
-import { ITestFromServer } from "../store/ducks/quiz/saga";
-import { IQuizState, ITest } from "../store/ducks/quiz/types";
+import { ITest } from "../store/ducks/quiz/types";
 import { IUser } from "../store/ducks/user/types";
 
 export type IServerData<T> = {

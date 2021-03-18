@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
 import {
   Button,
   Card,
@@ -22,13 +21,13 @@ import { useSelector } from "react-redux";
 import { selectAuthError, selectAuthStatus } from "../../../store/ducks/user/selectors";
 import { usePassword } from "../../../hooks/usePassword";
 import { AppAlert } from "../../../components";
-import { useLoginForm } from "../../Profile/hooks/useLoginForm";
+import { useLoginForm } from "../hooks/useLoginForm";
 
 export const LoginPage: React.FC = (): React.ReactElement => {
   const history = useHistory()
   const pass = usePassword();
   
-  const { isLoading, isError, isNever, isSuccess } = useSelector(
+  const { isLoading, isError, isSuccess } = useSelector(
     selectAuthStatus
   );
   useEffect(() => {

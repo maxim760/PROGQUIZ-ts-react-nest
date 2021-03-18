@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import "./ModalShare.scss"
 import {
@@ -20,13 +19,10 @@ import {
 } from "react-share";
 import { useSelector } from "react-redux";
 import {
-  selectIsPassedTest,
   selectResultUrl,
   selectUrlStatus,
 } from "../../../../store/ducks/quiz/selectors";
 import { AppAlert, Loader } from "../../../../components";
-import success from "../../../../assets/success.jpg";
-import fail from "../../../../assets/fail.jpg";
 
 interface ModalShareProps {
   isVisible: boolean;
@@ -64,7 +60,7 @@ export const ModalShare: React.FC<ModalShareProps> = ({
   const title = "Мой результат";
 
   const { isError, isLoading } = useSelector(selectUrlStatus);
- 
+
   if(!isVisible) {
     return null
   }

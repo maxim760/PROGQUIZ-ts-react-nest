@@ -9,9 +9,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../store/ducks/user/selectors";
 import { ROUTE_NAMES } from "../../utils/routes";
 
-interface AppNavbarProps {}
-
-export const AppNavbar: React.FC<AppNavbarProps> = ({}): React.ReactElement => {
+export const AppNavbar: React.FC = (): React.ReactElement => {
   const { isAuth } = useAuth();
   const user = useSelector(selectUser);
   const history = useHistory();
@@ -23,7 +21,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({}): React.ReactElement => {
       </Button>
       <div className="navbar__links">
         {isAuth ? (
-          <Link to={ROUTE_NAMES.CREATE} className="navbar__link">
+          <Link to={ROUTE_NAMES.CREATE_MAIN} className="navbar__link">
             <Typography variant="h6" color="primary">
               Создать тест
             </Typography>

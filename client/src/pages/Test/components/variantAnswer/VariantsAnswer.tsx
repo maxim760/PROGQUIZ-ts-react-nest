@@ -1,11 +1,9 @@
 import {
   Box,
   Button,
-  Checkbox,
   Divider,
-  FormControlLabel,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { AppCheckBox } from "../../../../components";
 import { IVariant } from "../../../../store/ducks/quiz/types";
 
@@ -14,6 +12,7 @@ interface VariantsAnswerProps {
   onClick?: (i: number) => () => void;
   userAnswer?: null | number;
   rightAnswer?: null | number;
+  isFullShow?: boolean
 }
 
 export const VariantsAnswer: React.FC<VariantsAnswerProps> = ({
@@ -21,9 +20,10 @@ export const VariantsAnswer: React.FC<VariantsAnswerProps> = ({
   onClick,
   userAnswer = null,
   rightAnswer = null,
+  isFullShow = false
 }): React.ReactElement => {
   const isRight = userAnswer === rightAnswer && userAnswer !== null;
-  const [isShowAnswer, setIsShowAnswer] = React.useState(false);
+  const [isShowAnswer, setIsShowAnswer] = useState(false || isFullShow);
   const onToggleShowAnswer = () => setIsShowAnswer((prev) => !prev);
 
   return (
@@ -33,7 +33,8 @@ export const VariantsAnswer: React.FC<VariantsAnswerProps> = ({
           key={i}
           className={[
             "test__answers-btn",
-            userAnswer === i + 1 && !isRight ? "fail" : "",
+            isFullShow ? "test__answers--no-transition" : null ,
+            userAnswer === i + 1 && !isRight ? "fail" : null,
             rightAnswer === i + 1 && isShowAnswer ? "success" : null,
           ].join(" ")}
           onClick={onClick ? onClick(i + 1) : undefined}

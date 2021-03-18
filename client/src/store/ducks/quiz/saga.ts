@@ -4,7 +4,7 @@ import { QuizApi } from '../../../service/QuizApi'
 import { IResultTestToAdd, ResultsApi } from '../../../service/ResultsApi'
 import { ROUTE_NAMES } from '../../../utils/routes'
 import { ILoadingStatus } from '../../types'
-import { selectUser, selectUserID } from '../user/selectors'
+import { selectUserID } from '../user/selectors'
 import { selectPercentTest, selectQuiz, selectTimeForTest } from './selectors'
 import { fetchQuiz, finishQuiz, setQuiz, setResultUrl, setStatusError, setStatusLoading, setStatusSuccess, setUrlStatus } from './slice'
 import { IQuestion, ITest, ITestCategory } from './types'
@@ -55,12 +55,10 @@ function* finishQuizWorker() {
       }
     }
     const userId: string = yield select(selectUserID)!
-    const userss: string = yield select(selectUser)!
     const id: string = yield call(ResultsApi.sendResultTest, resToAdd)
     const url = `${window.location.origin}${ROUTE_NAMES.RESULT}${userId}/${id}`
     yield put(setResultUrl(url))
   } catch (error) {
     yield put(setUrlStatus(ILoadingStatus.ERROR))
-    console.log(error)
   } 
 }

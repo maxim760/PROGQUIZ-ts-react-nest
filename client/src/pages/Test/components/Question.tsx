@@ -1,5 +1,5 @@
-import { Box, Button, Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import { Box, Typography } from "@material-ui/core";
+import React from "react";
 import "../TestPage.scss";
 
 import { VariantsAnswer } from "./variantAnswer/VariantsAnswer";

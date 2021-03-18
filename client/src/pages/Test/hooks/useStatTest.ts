@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectErrorsFromTest, selectPercentTest, selectQuestionsLength, selectQuizSuccessPercent, selectTimeForTest } from '../../../store/ducks/quiz/selectors';
 

@@ -1,4 +1,44 @@
 .create {
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 750px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  & > * + * {
+    margin-top: 10px !important;
+  }
+  &__input {
+    max-width: 400px !important;
+    width: 100% !important;
+  }
+  &__btn-start {
+    margin-top: 30px !important;
+  }
+  &__ready-quest {
+    width: 600px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+  &__menu {
+    position: absolute;
+    top: -10px;
+    right: -35px;
+  }
+  &__divider {
+    width: 100% !important;
+    height: 2px !important;
+    margin-top: 8px !important;
+    margin-bottom: 3px !important;
+  }
   &__input-percent {
     display: flex;
     align-items: center;

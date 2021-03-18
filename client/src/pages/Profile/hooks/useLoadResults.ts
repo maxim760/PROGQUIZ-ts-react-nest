@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IResultTest, ResultsApi } from '../../../service/ResultsApi';
 import { ILoadingStatus } from '../../../store/types';
 

@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Button, Card, Typography } from "@material-ui/core";
+import React from "react";
+import { Button, Typography } from "@material-ui/core";
 import "./ProfilePage.scss";
-import { useAppDispatch } from "../../store/store";
-import { setNotIsAuth } from "../../store/ducks/user/slice";
-import { IResultTest, ResultsApi } from "../../service/ResultsApi";
-import { ILoadingStatus } from "../../store/types";
 import { AppAlert, Loader } from "../../components";
-import { useModal } from "../../hooks/useModal";
 import { ResultItem } from "./components/ResultItem";
 import { useAuth } from "../../hooks/useAuth";
 import { useLoadResults } from "./hooks/useLoadResults";
-interface ProfileProps {}
 
-export const ProfilePage: React.FC<ProfileProps> = ({}): React.ReactElement => {
-  const { onShow } = useModal();
+export const ProfilePage: React.FC = (): React.ReactElement => {
   const { onLogout } = useAuth();
   const { results, error, status } = useLoadResults();
 

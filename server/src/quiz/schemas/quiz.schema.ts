@@ -4,7 +4,7 @@ import { Document, Schema as mongooseSchema } from 'mongoose';
 export type QuizDocument = Quiz & Document;
 export type IVariant = {
   text: string;
-  id: number;
+  _id: string;
 };
 export type IQuestion = {
   id: number;
@@ -24,7 +24,7 @@ export class Quiz {
   @Prop()
   description: string;
 
-  @Prop([{ id: Number, text:String, rightAnswer: Number, variants: [{text: String }] }])
+  @Prop([{ id: String, text:String, rightAnswer: Number, variants: [{text: String, _id: String }] }])
   questions: IQuestion[];
 
   @Prop({default: 0.8})

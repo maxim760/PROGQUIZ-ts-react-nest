@@ -22,7 +22,7 @@ const quizSlice = createSlice({
   reducers: {
     fetchQuiz(state, action: PayloadAction<string>) {
       // id для получения теста
-      setStatusLoading()
+      state.loadingStatus = ILoadingStatus.LOADING
     },
     setQuiz(state, action: PayloadAction<ITest>) {
       state.quiz = action.payload

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react'
 import { QuizApi } from '../../../service/QuizApi';
 import { ITestFromServer } from '../../../store/ducks/quiz/saga';
 import { ILoadingStatus } from '../../../store/types';

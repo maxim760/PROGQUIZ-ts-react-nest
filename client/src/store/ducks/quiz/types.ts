@@ -2,7 +2,7 @@ import { ILoadingStatus } from "../../types";
 
 export type IVariant = {
   text: string;
-  _id: number;
+  _id: string;
 };
 export type IQuestion = {
   _id: number;
@@ -10,6 +10,7 @@ export type IQuestion = {
   variants: IVariant[];
   rightAnswer: number;
 };
+
 export enum ITestCategory {
   JS = "JS",
   PYTHON = "PYTHON",

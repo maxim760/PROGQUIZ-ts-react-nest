@@ -1,5 +1,5 @@
-import axios from "axios"
-import { $host } from ".";
+import { $authHost, $host } from ".";
+import { ICreatedTest, ICreateState } from "../store/ducks/create/types";
 import { ITestFromServer } from "../store/ducks/quiz/saga";
 
 export type IServerData<T> = {
@@ -30,8 +30,17 @@ export const QuizApi = {
       const {data}: IServerData<string[]> = await $host.get("/quiz/category") 
       return data
     } catch (error) {
-      throw new Error(error.response.data.message || error.message);
-      
+      throw new Error(error.response.data.message || error.message); 
     }
+  },
+  async create(test: ICreatedTest): Promise<string> {
+    try {
+      const { data }: IServerData<string> = await $authHost.post("/quiz", test)
+      console.log(data)
+      return data
+    } catch (error) {
+      throw new Error(error.response.data.message || error.message)
+    }
+      
   }
 }

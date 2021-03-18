@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
+import { CreateQuizDto } from './dto/create-quiz.dto';
 import { QuizService } from './quiz.service';
 
 @Controller('/quiz')
@@ -19,7 +20,8 @@ export class QuizController {
     return this.quizService.getOne(id);
   }
   @Post()
-  create() {
-    return this.quizService.create();
+  create(@Body() quiz: CreateQuizDto) {
+    
+    return this.quizService.create(quiz);
   }
 }

@@ -1,49 +1,110 @@
 @import "../../../../index.scss";
 
 .create-question {
-  margin: 0 auto;
+  margin: 0 auto !important;
   max-width: 750px;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
+  &--wrapper {
+    padding-bottom: 10px;
+    position: relative;
+  }
+  &--success {
+    justify-content: center;
+    height: 100%;
+    & > * + * {
+      margin-top: 25px !important;
+    }
+  }
+  & > * + * {
+    margin-top: 10px;
+  }
+  &__title {
+    font-size: 1.6rem !important;
+    padding: 4px;
+    border-bottom: 2px solid #333;
+  }
+  &__arrow {
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 36px !important;
+    pointer-events: auto !important;
+    &:disabled {
+      svg {
+        cursor: not-allowed !important
+      }
+    }
+    &--right {
+      right: -50px;
+    }
+    &--left {
+      left: -50px;
+    }
+  }
   &__header {
     margin-top: 10px !important;
     display: flex;
     align-items: center;
-    width:fit-content;
+    width: fit-content;
     margin: 0 auto;
     border-radius: 10px;
-    border: 2px solid $blue; 
+    border: 2px solid $blue;
+  }
+  &__question {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    text-align: center;
+  }
+  &__card {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: -2px -2px 5px rgba(0,0,0,0.3),2px -2px 5px rgba(0,0,0,0.3),-2px 2px 5px rgba(0,0,0,0.3),2px 2px 5px rgba(0,0,0,0.3) !important;
+    a  {
+      color: $blue;
+      font-size: 1.2rem;
+      padding: 3px 0;
+      border-bottom: 1px solid $blue;
+    }
   }
   &__icon-button {
     font-size: 2rem !important;
     padding: 0 !important;
   }
   &__icon {
-    
     font-size: 2rem !important;
-  }
-  &__title {
-    font-size: 1.6rem;
-    padding: 4px;
   }
   &__question {
     width: 75%;
     text-align: center;
   }
   &__answers {
-    margin: 20px 0;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items:center;
     & > * {
       width: 40%;
-      margin-bottom: 10px !important;
+      margin-top: 10px !important;
       & > * {
         border-radius: 10px !important;
       }
-
     }
+  }
+  &__new {
+    margin-left: auto;
+  }
+  &__footer {
+    margin-top: 20px;
+    padding: 0 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }

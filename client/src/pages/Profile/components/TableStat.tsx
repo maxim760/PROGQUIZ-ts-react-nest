@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   createStyles,
   makeStyles,
@@ -91,7 +91,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { classes, order, orderBy, rowCount, onRequestSort } = props;
+  const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property: keyof IStat) => (
     event: React.MouseEvent<unknown>
   ) => {
@@ -161,8 +161,8 @@ export const TableStat: React.FC<TableStatProps> = ({
   successPercent,
 }): React.ReactElement => {
   const classes = useStyles();
-  const [order, setOrder] = React.useState<Order>("desc");
-  const [orderBy, setOrderBy] = React.useState<keyof IStat>("date");
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof IStat>("date");
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,

@@ -1,8 +1,4 @@
-import React from 'react'
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { usePassword } from '../../../hooks/usePassword';
-import { selectAuthStatus, selectAuthError } from '../../../store/ducks/user/selectors';
 import { fetchRegisterUser } from '../../../store/ducks/user/slice';
 import { IUserForRegister } from '../../../store/ducks/user/types';
 import { useAppDispatch } from '../../../store/store';

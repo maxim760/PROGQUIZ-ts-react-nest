@@ -24,6 +24,7 @@ export const AppCheckBox: React.FC<AppCheckBoxProps> = ({
 
   return (
     <FormControlLabel
+      style={{marginTop:0}}
       className={className}
       control={
         <Checkbox checked={checked} onChange={onChange} color="primary" />
