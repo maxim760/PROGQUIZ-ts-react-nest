@@ -12,6 +12,7 @@ import "./finish.scss";
 import { useModal } from "../../../../hooks/useModal";
 import { ModalShare } from "../ModalShare/ModalShare";
 import { useAuth } from "../../../../hooks/useAuth";
+import { ROUTE_NAMES } from "../../../../utils/routes";
 
 export const Finish: React.FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ export const Finish: React.FC = (): React.ReactElement => {
   } = useStatTest();
   const { onToggle, isShow } = useShowErrors();
   const onGoToStart = () => dispatch(resetTest());
-  const onGoToMainPage = () => history.push("/");
+  const onGoToMainPage = () => history.push(ROUTE_NAMES.MAIN);
   const { isAuth } = useAuth();
   return (
     <div className="finish">

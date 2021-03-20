@@ -32,7 +32,7 @@ export const LoginPage: React.FC = (): React.ReactElement => {
   );
   useEffect(() => {
     if (isSuccess) {
-      history.push("/")
+      history.push(ROUTE_NAMES.MAIN)
     }
   }, [isSuccess]);
   const authError = useSelector(selectAuthError)

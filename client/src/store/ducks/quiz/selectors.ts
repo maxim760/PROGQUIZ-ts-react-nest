@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { statusToObj } from "../../../utils/statusToObj";
 import { RootState } from "../../rootReducer";
 import { ILoadingStatus } from "../../types";
 import { IQuestion, ITestStatus } from "./types";
@@ -19,12 +20,7 @@ export const selectQuestionsObject = createSelector(
 
 export const selectQuizLoading = (state: RootState) => {
   const { loadingStatus } = selectQuizState(state);
-  return {
-    isLoading: loadingStatus === ILoadingStatus.LOADING,
-    isError: loadingStatus === ILoadingStatus.ERROR,
-    isSuccess: loadingStatus === ILoadingStatus.SUCCESS,
-    isNever: loadingStatus === ILoadingStatus.NEVER
-  };
+  return statusToObj(loadingStatus)
 };
 
 export const selectQuizSuccessPercent = (state: RootState) => selectQuiz(state)!.successResult 
@@ -104,11 +100,6 @@ export const selectErrorsFromTest = createSelector(
 export const selectResultUrl = (state: RootState) => selectQuizState(state).resultUrl
 export const selectUrlStatus = (state: RootState) => {
   const status = selectQuizState(state).urlStatus
-  return {
-    isLoading: status === ILoadingStatus.LOADING,
-    isSuccess: status === ILoadingStatus.SUCCESS,
-    isNever: status === ILoadingStatus.NEVER,
-    isError: status === ILoadingStatus.ERROR,
-  }
+  return statusToObj(status)
 } 
 

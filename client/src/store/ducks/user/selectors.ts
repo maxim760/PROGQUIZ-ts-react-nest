@@ -1,3 +1,4 @@
+import { statusToObj } from "../../../utils/statusToObj";
 import { RootState } from "../../rootReducer";
 import { ILoadingStatus } from "../../types";
 
@@ -7,12 +8,7 @@ export const selectUserID = (state: RootState) => selectUser(state)?._id;
 export const selectUserIsAuth = (state: RootState) => selectUserState(state).isAuth
 export const selectAuthStatus = (state: RootState) => {
   const status = selectUserState(state).authStatus
-  return {
-    isLoading: status === ILoadingStatus.LOADING,
-    isError: status === ILoadingStatus.ERROR,
-    isSuccess: status === ILoadingStatus.SUCCESS,
-    isNever: status === ILoadingStatus.NEVER,
-  }
+  return statusToObj(status)
 }
 
 export type IAuthErrorSelector = null | {

@@ -13,7 +13,7 @@ export const AppNavbar: React.FC = (): React.ReactElement => {
   const { isAuth } = useAuth();
   const user = useSelector(selectUser);
   const history = useHistory();
-  const goToMain = () => history.push("/");
+  const goToMain = () => history.push(ROUTE_NAMES.MAIN);
   return (
     <nav className="navbar__nav">
       <Button color="primary" variant="contained" onClick={goToMain}>

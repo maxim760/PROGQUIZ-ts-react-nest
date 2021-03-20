@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IResultTest, ResultsApi } from '../../../service/ResultsApi';
 import { ILoadingStatus } from '../../../store/types';
+import { statusToObj } from '../../../utils/statusToObj';
 
 export const useLoadResults = () => {
   const [results, setResults] = useState<IResultTest[] | null>(null);
@@ -22,10 +23,6 @@ export const useLoadResults = () => {
   return {
     results,
     error,
-    status: {
-      isLoading:  status === ILoadingStatus.LOADING,
-      isError:  status === ILoadingStatus.ERROR,
-      isSuccess:  status === ILoadingStatus.SUCCESS,
-    }
+    status: statusToObj(status)
   }
 }

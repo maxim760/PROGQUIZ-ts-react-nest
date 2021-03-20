@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { routes, authRoutes } from "../../utils/routes";
+import { routes, authRoutes, ROUTE_NAMES } from "../../utils/routes";
 
 
 export const AppRouter: React.FC = (): React.ReactElement => {
@@ -13,7 +13,7 @@ export const AppRouter: React.FC = (): React.ReactElement => {
       {appRoutes.map(({ path, component }) => (
         <Route key={path} path={path} component={component} exact />
       ))}
-      <Redirect to="/" />
+      <Redirect to={ROUTE_NAMES.MAIN } />
     </Switch>
   );
 };

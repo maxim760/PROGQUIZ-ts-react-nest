@@ -27,7 +27,6 @@ export const VerifyPage: React.FC = (): React.ReactElement | null => {
     };
     verifyUser();
   }, []);
-  //TODO: попробовать авторизацию через вк
   useEffect(() => {
     if (loadingStatus === ILoadingStatus.SUCCESS) {
       setTimeout(() => {
