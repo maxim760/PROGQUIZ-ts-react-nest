@@ -16,7 +16,7 @@ import {
   selectCurrentQuestionIdx,
 } from "../../store/ducks/create/selectors";
 import { ROUTE_NAMES } from "../../utils/routes";
-import { CreateQuestion } from "./components/createQuestion/CreateQuestion";
+import { CreateQuestion } from "./components/createQuestion/createQuestion";
 import { Questions } from "./components/Questions/Questions";
 import LeftIcon from "@material-ui/icons/ArrowBackIos";
 import RightIcon from "@material-ui/icons/ArrowForwardIos";

@@ -1,6 +1,6 @@
 export { MainTemplate } from "./MainTemplate/MainTemplate"
 export { AppNavbar } from "./AppNavbar/AppNavbar"
 export { Loader } from "./Loader/Loader"
-export { AppCheckBox } from "./AppCheckBox/AppCheckBox"
+export { AppCheckBox } from "./AppCheckBox/AppCheckbox"
 export { AppAlert } from "./AppAlert/AppAlert"
 export { AppRouter } from "./AppRouter/AppRouter"

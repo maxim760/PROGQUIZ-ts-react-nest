@@ -11,11 +11,12 @@ import "./finish.scss";
 
 import { useModal } from "../../../../hooks/useModal";
 import { ModalShare } from "../ModalShare/ModalShare";
+import { useAuth } from "../../../../hooks/useAuth";
 
 export const Finish: React.FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const {isVisible, onShow, onHide} = useModal()
+  const { isVisible, onShow, onHide } = useModal();
   const {
     time,
     rightAnswersLength,
@@ -27,6 +28,7 @@ export const Finish: React.FC = (): React.ReactElement => {
   const { onToggle, isShow } = useShowErrors();
   const onGoToStart = () => dispatch(resetTest());
   const onGoToMainPage = () => history.push("/");
+  const { isAuth } = useAuth();
   return (
     <div className="finish">
       <h1>Конец</h1>
@@ -57,13 +59,15 @@ export const Finish: React.FC = (): React.ReactElement => {
         >
           Начать заново
         </Button>
-        <Button
-          className="finish__navButton"
-          variant="contained"
-          onClick={onShow}
-        >
-          Поделиться
-        </Button>
+        {isAuth ? (
+          <Button
+            className="finish__navButton"
+            variant="contained"
+            onClick={onShow}
+          >
+            Поделиться
+          </Button>
+        ) : null}
       </div>
 
       {errors.length ? (
