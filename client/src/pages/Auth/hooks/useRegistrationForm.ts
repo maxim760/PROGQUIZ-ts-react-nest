@@ -1,7 +1,10 @@
+import { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchRegisterUser } from '../../../store/ducks/user/slice';
+import { useHistory } from 'react-router-dom';
+import { fetchRegisterUser, setAuthStatusNever } from '../../../store/ducks/user/slice';
 import { IUserForRegister } from '../../../store/ducks/user/types';
 import { useAppDispatch } from '../../../store/store';
+import { ROUTE_NAMES } from '../../../utils/routes';
 
 type Inputs = {
   email: string;
@@ -12,7 +15,12 @@ type Inputs = {
 
 export const useRegistrationForm = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory()
+  const toLogin = () =>  {
+    dispatch(setAuthStatusNever())
+    history.push(ROUTE_NAMES.LOGIN)
 
+  }
   const {
     register,
     handleSubmit,
@@ -38,6 +46,7 @@ export const useRegistrationForm = () => {
     watch,
     errors,
     register,
+    toLogin
   }
 
 }

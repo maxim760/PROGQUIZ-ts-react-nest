@@ -1,5 +1,6 @@
+import { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchLoginUser } from '../../../store/ducks/user/slice';
+import { fetchLoginUser, setAuthStatusNever } from '../../../store/ducks/user/slice';
 import { IUserForLogin } from '../../../store/ducks/user/types';
 import { useAppDispatch } from '../../../store/store';
 type Inputs = {
@@ -8,7 +9,7 @@ type Inputs = {
 };
 export const useLoginForm = () => {
   const dispatch = useAppDispatch()
-  
+ 
   const { register, handleSubmit,errors } = useForm<Inputs>({
     mode: "onChange",
     reValidateMode: "onChange",

@@ -27,14 +27,13 @@ import { usePassword } from "../../../hooks/usePassword";
 import { useRegistrationForm } from "../hooks/useRegistrationForm";
 
 export const RegistrationPage: React.FC = (): React.ReactElement => {
-
   const pass = usePassword();
   const repeatPass = usePassword();
   const authError = useSelector(selectAuthError)
   const { isLoading, isError, isSuccess } = useSelector(
     selectAuthStatus
   );
-  const {onComparePasswords, onSubmitForm, errors, register, watch} = useRegistrationForm()
+  const {onComparePasswords, onSubmitForm, errors, register, watch, toLogin} = useRegistrationForm()
 
   return (
     <form onSubmit={onSubmitForm} className="login">
@@ -173,9 +172,9 @@ export const RegistrationPage: React.FC = (): React.ReactElement => {
         <div className="login__footer">
           <Typography>
             Есть аккаунт?&nbsp;
-            <Link to={ROUTE_NAMES.LOGIN}>
+            <p className="login__link" onClick={toLogin} role="button">
               <b>Войдите</b>
-            </Link>
+            </p>
           </Typography>
           <Button
             type="submit"

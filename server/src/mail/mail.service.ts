@@ -7,7 +7,7 @@ import { NotifyUserDto, VerifyUserDto } from './dto/verify-user.dto';
 export class MailService {
   constructor(private readonly mailerService: MailerService) { }
 
-  public sendInfoEmail({emailTo, hash} : VerifyUserDto): void {
+  public sendInfoEmail({ emailTo, hash }: VerifyUserDto): void {
     this
       .mailerService
       .sendMail({
@@ -22,7 +22,7 @@ export class MailService {
         console.log(success)
       })
       .catch((err) => {
-        throw new HttpException(err.message, 500)
+        console.log(err)
       });
   }
   public sendSuccessEmail({emailTo} : NotifyUserDto): void {
@@ -37,7 +37,7 @@ export class MailService {
         console.log(success)
       })
       .catch((err) => {
-        throw new HttpException(err.message, 500)
+        console.log(err)
       });
   }
   

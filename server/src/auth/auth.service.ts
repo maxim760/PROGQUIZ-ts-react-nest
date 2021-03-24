@@ -36,7 +36,7 @@ export class AuthService {
       throw new HttpException("Не авторизован", 400)
     }
     const { username, _id, confirmed, email } = user._doc;
-    const payload = { username,email, sub: _id };
+    const payload = { username,email, _id };
     if (!confirmed) {
       throw new HttpException('Email не подтверждён', 400);
     }

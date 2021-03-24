@@ -55,6 +55,11 @@ export class UsersService {
 
   async passTest(user: any, result: CreateResutDto): Promise<ObjectId> {
     try {
+
+      console.log("USER:: =>")
+      console.log(user)
+      console.log("RESULT:: =>")
+      console.log(result)
       if (!user) {
         throw new HttpException('Не авторизован', 401);
       }
